@@ -3,7 +3,7 @@
 Clone the repository to your push_swap directory and use
 
 ```bash
-./tester.sh lower_range upper_range number_of_cases
+bash push_swap_tester/tester.sh lower_range upper_range number_of_cases
 ```
 
 to test your push_swap.
