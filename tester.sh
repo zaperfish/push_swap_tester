@@ -17,7 +17,7 @@ ProgressBar ()
     let _left=40-$_done
     _fill=$(printf "%${_done}s")
     _empty=$(printf "%${_left}s")
-	printf "\rProgress : [${_fill// /#}${_empty// /-}] ${_progress}%%"
+	printf "\rProgress : [${_fill// /#}${_empty// /-}] ${_progress}%% "
 }
 
 exec_set ()
@@ -27,12 +27,18 @@ exec_set ()
 	do
 		$(< 10k.txt shuf | head -n $2 > testcase.txt)
 		ARG=$(< testcase.txt)
-		if ../push_swap $ARG | ./checker_linux $ARG | grep OK > /dev/null; then
+		../push_swap $ARG | ./checker_linux $ARG &> status.txt
+		if cat status.txt | grep OK > /dev/null; then
 			ProgressBar $i $1
 			../push_swap $ARG | wc -l >> count.txt
+		elif cat status.txt | grep Error > /dev/null; then
+			printf "\nStatus : ${RED}Error${DEF_COLOR}\n"
+			printf "Testcase saved in file KO_testcase.txt\n"
+			cp testcase.txt KO_testcase.txt
+			return 0
 		else
-			printf "Status : ${RED}KO${DEF_COLOR}\n"
-			printf "KO testcase saved in file KO_testcase.txt\n"
+			printf "\nStatus : ${RED}KO${DEF_COLOR}\n"
+			printf "Testcase saved in file KO_testcase.txt\n"
 			cp testcase.txt KO_testcase.txt
 			return 0
 		fi
@@ -61,3 +67,4 @@ exec_all ()
 exec_all $1 $2 $3
 
 rm -f testcase.txt
+rm -f status.txt
