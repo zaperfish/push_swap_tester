@@ -16,3 +16,7 @@ cd push_swap_tester
 bash tester.sh 10 20 7
 ```
 This will test your push_swap with stack sizes in the range 10-20 with 7 testcases for each stack size.
+
+Info
+MIN lower_range = 1
+MAX upper_range = 10000
