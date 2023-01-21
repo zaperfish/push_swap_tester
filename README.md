@@ -12,6 +12,6 @@ Example:
 
 ```bash
 git clone https://github.com/zaperfish/push_swap_tester
-./tester.sh 10 20 7
+bash push_swap_tester/tester.sh 10 20 7
 ```
 This will test your push_swap with stack sizes in the range 10-20 with 7 testcases for each stack size.
